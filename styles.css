@@ -98,8 +98,12 @@ button.small { padding: 9px 14px; font-size: 0.9rem; }
 
 .form-grid,
 .check-grid,
-.slider-stack { display: grid; gap: 14px; }
-.form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.slider-stack,
+.intro-grid,
+.verdict-grid { display: grid; gap: 14px; }
+.form-grid,
+.intro-grid,
+.verdict-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .full { grid-column: 1 / -1; }
 .top-gap { margin-top: 18px; }
 label span,
@@ -146,6 +150,7 @@ textarea { resize: vertical; min-height: 90px; }
 }
 input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--danger); }
 
+.intro-card,
 .result-card { grid-column: 1 / -1; }
 .score-band {
   display: grid;
@@ -251,7 +256,9 @@ pre {
   .form-grid,
   .check-grid,
   .score-band,
-  .compare-grid { grid-template-columns: 1fr; }
+  .compare-grid,
+  .intro-grid,
+  .verdict-grid { grid-template-columns: 1fr; }
   .hero { flex-direction: column; }
   .hero-actions { align-self: stretch; }
 }
