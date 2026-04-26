@@ -1,0 +1,16 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#09111F"/>
+  <circle cx="160" cy="104" r="220" fill="#77A8FF" fill-opacity="0.18"/>
+  <circle cx="1010" cy="108" r="160" fill="#7CF2C7" fill-opacity="0.1"/>
+  <rect x="86" y="84" width="1028" height="462" rx="42" fill="#101B31" stroke="#27405E" stroke-width="2"/>
+  <text x="130" y="170" fill="#7CF2C7" font-family="Inter, Arial, sans-serif" font-size="24" letter-spacing="6">STUDIO GLHF</text>
+  <text x="130" y="270" fill="#EAF1FF" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="700">Build or Bin</text>
+  <text x="130" y="340" fill="#9FB0D6" font-family="Inter, Arial, sans-serif" font-size="34">A local-first founder idea filter for deciding</text>
+  <text x="130" y="386" fill="#9FB0D6" font-family="Inter, Arial, sans-serif" font-size="34">whether to build, prototype, monitor, park, or kill.</text>
+  <rect x="130" y="432" width="248" height="58" rx="29" fill="#132239" stroke="#27405E"/>
+  <text x="165" y="470" fill="#EAF1FF" font-family="Inter, Arial, sans-serif" font-size="26">GitHub Pages • Local only</text>
+  <path d="M842 244H930" stroke="#7CF2C7" stroke-width="26" stroke-linecap="round"/>
+  <path d="M988 192L1056 260L988 328" stroke="#77A8FF" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="870" cy="192" r="20" fill="#7CF2C7"/>
+  <circle cx="870" cy="328" r="20" fill="#FF7F96"/>
+</svg>

@@ -27,6 +27,7 @@ Build or Bin is intentionally simple:
 - save and reload idea snapshots
 - quick side-by-side comparison of the top two saved ideas
 - local-first persistence via `localStorage`
+- social preview and branded static assets for cleaner GitHub/link sharing
 
 ## Run locally
 
