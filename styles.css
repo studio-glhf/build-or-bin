@@ -58,7 +58,7 @@ h1, h2, h3, p { margin-top: 0; }
 h1 { font-size: clamp(2rem, 4vw, 3.4rem); margin-bottom: 12px; }
 h2 { font-size: 1.1rem; }
 .hero-copy { max-width: 62ch; color: var(--muted); line-height: 1.55; }
-.hero-actions { display: flex; gap: 12px; align-items: flex-start; }
+.hero-actions, .inline-actions { display: flex; gap: 12px; align-items: flex-start; }
 
 button {
   border: 0;
@@ -177,6 +177,43 @@ pre {
   margin: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   line-height: 1.45;
+}
+
+.snapshot-list {
+  display: grid;
+  gap: 12px;
+}
+
+.snapshot-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid rgba(180, 205, 255, 0.1);
+  background: rgba(8, 14, 26, 0.46);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.snapshot-item h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.snapshot-meta,
+.empty-state {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.snapshot-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.snapshot-buttons button {
+  padding: 9px 12px;
 }
 
 @media (max-width: 880px) {

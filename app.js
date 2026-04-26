@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'build-or-bin-state-v1';
+const SNAPSHOT_KEY = 'build-or-bin-snapshots-v1';
 
 const fields = {
   ideaName: document.querySelector('#ideaName'),
@@ -33,12 +34,14 @@ const outputs = {
   verdict: document.querySelector('#verdict'),
   reasoning: document.querySelector('#reasoning'),
   summaryText: document.querySelector('#summaryText'),
+  snapshotList: document.querySelector('#snapshotList'),
 };
 
 const buttons = {
   loadSample: document.querySelector('#loadSampleButton'),
   reset: document.querySelector('#resetButton'),
   copySummary: document.querySelector('#copySummaryButton'),
+  saveSnapshot: document.querySelector('#saveSnapshotButton'),
 };
 
 const sampleState = {
@@ -62,6 +65,18 @@ const sampleState = {
   redFlagWeakDistribution: false,
   redFlagCrowded: true,
 };
+
+function readSnapshots() {
+  try {
+    return JSON.parse(localStorage.getItem(SNAPSHOT_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function writeSnapshots(items) {
+  localStorage.setItem(SNAPSHOT_KEY, JSON.stringify(items));
+}
 
 function collectState() {
   return Object.fromEntries(
@@ -140,6 +155,32 @@ function buildSummary(state, score, verdict, redFlags) {
   ].join('\n');
 }
 
+function renderSnapshots() {
+  const snapshots = readSnapshots();
+  if (!snapshots.length) {
+    outputs.snapshotList.className = 'snapshot-list empty-state';
+    outputs.snapshotList.textContent = 'No snapshots yet. Save a decision you want to compare later.';
+    return;
+  }
+
+  outputs.snapshotList.className = 'snapshot-list';
+  outputs.snapshotList.innerHTML = snapshots
+    .map((item, index) => `
+      <article class="snapshot-item">
+        <div>
+          <h3>${item.ideaName || 'Untitled idea'} · ${item.verdict}</h3>
+          <p class="snapshot-meta">Score ${item.score}/30 · saved ${new Date(item.savedAt).toLocaleString()}</p>
+          <p class="snapshot-meta">${item.user || 'No specific user saved'}</p>
+        </div>
+        <div class="snapshot-buttons">
+          <button class="secondary small" data-load-index="${index}">Load</button>
+          <button class="ghost small" data-delete-index="${index}">Delete</button>
+        </div>
+      </article>
+    `)
+    .join('');
+}
+
 function render() {
   const state = collectState();
   const score = state.painScore + state.evidenceScore + state.wedgeScore + state.distributionScore + state.edgeScore + state.opsScore;
@@ -156,6 +197,7 @@ function render() {
   outputs.summaryText.textContent = buildSummary(state, score, verdict, redFlags);
 
   saveState();
+  renderSnapshots();
 }
 
 function reset() {
@@ -188,6 +230,38 @@ buttons.copySummary.addEventListener('click', async () => {
   await navigator.clipboard.writeText(outputs.summaryText.textContent);
   buttons.copySummary.textContent = 'Copied';
   setTimeout(() => (buttons.copySummary.textContent = 'Copy summary'), 1200);
+});
+buttons.saveSnapshot.addEventListener('click', () => {
+  const state = collectState();
+  const score = state.painScore + state.evidenceScore + state.wedgeScore + state.distributionScore + state.edgeScore + state.opsScore;
+  const verdict = deriveVerdict(score, getRedFlags(state));
+  const snapshots = readSnapshots();
+  snapshots.unshift({
+    ideaName: state.ideaName,
+    user: state.user,
+    score,
+    verdict,
+    savedAt: Date.now(),
+    state,
+  });
+  writeSnapshots(snapshots.slice(0, 12));
+  renderSnapshots();
+  buttons.saveSnapshot.textContent = 'Saved';
+  setTimeout(() => (buttons.saveSnapshot.textContent = 'Save snapshot'), 1200);
+});
+outputs.snapshotList.addEventListener('click', (event) => {
+  const loadIndex = event.target.dataset.loadIndex;
+  const deleteIndex = event.target.dataset.deleteIndex;
+  const snapshots = readSnapshots();
+  if (loadIndex !== undefined) {
+    applyState(snapshots[Number(loadIndex)].state);
+    render();
+  }
+  if (deleteIndex !== undefined) {
+    snapshots.splice(Number(deleteIndex), 1);
+    writeSnapshots(snapshots);
+    renderSnapshots();
+  }
 });
 
 loadSaved();

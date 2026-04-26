@@ -2,6 +2,8 @@
 
 A local-first founder idea filter for deciding whether to **build**, **prototype**, **monitor**, **park**, or **kill** a product idea before it eats your week.
 
+**Live demo:** https://studio-glhf.github.io/build-or-bin/
+
 ## Why
 
 Most idea evaluation tools are either:
@@ -22,6 +24,7 @@ Build or Bin is intentionally simple:
 - explicit red-flag kill conditions
 - verdict engine: Build Now / Prototype / Monitor / Park / Kill
 - exportable summary
+- save and reload idea snapshots
 - local-first persistence via `localStorage`
 
 ## Run locally
@@ -43,10 +46,10 @@ Then visit <http://localhost:4173/build-or-bin/> if served from the workspace ro
 ## Roadmap
 
 - richer scoring rationale
-- saved idea history
 - comparison view for multiple ideas
 - portfolio mode
 - better export formats
+- cleaner landing/demo storytelling for organic GitHub discovery
 
 ## License
 

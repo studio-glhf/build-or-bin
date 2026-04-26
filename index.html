@@ -121,7 +121,10 @@
         <section class="card result-card">
           <div class="section-head">
             <h2>Decision</h2>
-            <button id="copySummaryButton" class="secondary small">Copy summary</button>
+            <div class="inline-actions">
+              <button id="saveSnapshotButton" class="ghost small">Save snapshot</button>
+              <button id="copySummaryButton" class="secondary small">Copy summary</button>
+            </div>
           </div>
           <div class="score-band">
             <div>
@@ -137,6 +140,16 @@
           <div class="summary-box">
             <h3>Exportable summary</h3>
             <pre id="summaryText"></pre>
+          </div>
+        </section>
+
+        <section class="card result-card">
+          <div class="section-head">
+            <h2>Saved idea snapshots</h2>
+            <span class="chip">Browser storage</span>
+          </div>
+          <div id="snapshotList" class="snapshot-list empty-state">
+            No snapshots yet. Save a decision you want to compare later.
           </div>
         </section>
       </main>
