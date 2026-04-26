@@ -179,7 +179,8 @@ pre {
   line-height: 1.45;
 }
 
-.snapshot-list {
+.snapshot-list,
+.comparison-view {
   display: grid;
   gap: 12px;
 }
@@ -216,11 +217,41 @@ pre {
   padding: 9px 12px;
 }
 
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.compare-card {
+  border: 1px solid rgba(180, 205, 255, 0.1);
+  background: rgba(8, 14, 26, 0.46);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.compare-card h3 {
+  margin: 0 0 6px;
+}
+
+.compare-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.compare-winner {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 @media (max-width: 880px) {
   .grid,
   .form-grid,
   .check-grid,
-  .score-band { grid-template-columns: 1fr; }
+  .score-band,
+  .compare-grid { grid-template-columns: 1fr; }
   .hero { flex-direction: column; }
   .hero-actions { align-self: stretch; }
 }

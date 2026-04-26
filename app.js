@@ -35,6 +35,7 @@ const outputs = {
   reasoning: document.querySelector('#reasoning'),
   summaryText: document.querySelector('#summaryText'),
   snapshotList: document.querySelector('#snapshotList'),
+  comparisonView: document.querySelector('#comparisonView'),
 };
 
 const buttons = {
@@ -181,6 +182,37 @@ function renderSnapshots() {
     .join('');
 }
 
+function renderComparison() {
+  const snapshots = readSnapshots();
+  if (snapshots.length < 2) {
+    outputs.comparisonView.className = 'comparison-view empty-state';
+    outputs.comparisonView.textContent = 'Save at least two snapshots to compare ideas side by side.';
+    return;
+  }
+
+  const [a, b] = snapshots;
+  const winner = a.score === b.score ? null : a.score > b.score ? a : b;
+  outputs.comparisonView.className = 'comparison-view';
+  outputs.comparisonView.innerHTML = `
+    <div class="compare-grid">
+      ${[a, b].map((item) => `
+        <article class="compare-card">
+          <h3>${item.ideaName || 'Untitled idea'}</h3>
+          <p class="snapshot-meta">${item.verdict} · ${item.score}/30</p>
+          <ul class="compare-list">
+            <li><strong>User:</strong> ${item.user || '—'}</li>
+            <li><strong>Wedge:</strong> ${item.state.wedge || '—'}</li>
+            <li><strong>Evidence:</strong> ${item.state.evidence || '—'}</li>
+          </ul>
+        </article>
+      `).join('')}
+    </div>
+    <p class="snapshot-meta ${winner ? 'compare-winner' : ''}">
+      ${winner ? `Right now ${winner.ideaName || 'the higher-scoring idea'} looks stronger on the current rubric.` : 'These two ideas are tied on score. Use notes and red flags to break the tie.'}
+    </p>
+  `;
+}
+
 function render() {
   const state = collectState();
   const score = state.painScore + state.evidenceScore + state.wedgeScore + state.distributionScore + state.edgeScore + state.opsScore;
@@ -198,6 +230,7 @@ function render() {
 
   saveState();
   renderSnapshots();
+  renderComparison();
 }
 
 function reset() {
@@ -261,6 +294,7 @@ outputs.snapshotList.addEventListener('click', (event) => {
     snapshots.splice(Number(deleteIndex), 1);
     writeSnapshots(snapshots);
     renderSnapshots();
+    renderComparison();
   }
 });
 

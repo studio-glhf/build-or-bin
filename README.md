@@ -25,6 +25,7 @@ Build or Bin is intentionally simple:
 - verdict engine: Build Now / Prototype / Monitor / Park / Kill
 - exportable summary
 - save and reload idea snapshots
+- quick side-by-side comparison of the top two saved ideas
 - local-first persistence via `localStorage`
 
 ## Run locally
@@ -46,7 +47,7 @@ Then visit <http://localhost:4173/build-or-bin/> if served from the workspace ro
 ## Roadmap
 
 - richer scoring rationale
-- comparison view for multiple ideas
+- richer multi-idea comparison view
 - portfolio mode
 - better export formats
 - cleaner landing/demo storytelling for organic GitHub discovery
