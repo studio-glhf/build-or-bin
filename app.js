@@ -40,6 +40,8 @@ const outputs = {
 
 const buttons = {
   loadSample: document.querySelector('#loadSampleButton'),
+  loadB2BSample: document.querySelector('#loadB2BSampleButton'),
+  loadConsumerSample: document.querySelector('#loadConsumerSampleButton'),
   reset: document.querySelector('#resetButton'),
   copySummary: document.querySelector('#copySummaryButton'),
   saveSnapshot: document.querySelector('#saveSnapshotButton'),
@@ -65,6 +67,50 @@ const sampleState = {
   redFlagHeavyOps: false,
   redFlagWeakDistribution: false,
   redFlagCrowded: true,
+};
+
+const b2bSampleState = {
+  ideaName: 'RevOps handoff copilot',
+  user: 'Revenue operations leads at 20-100 person B2B SaaS teams',
+  problem: 'Leads fall through the cracks when ownership shifts between marketing, SDRs, and AEs.',
+  statusQuo: 'Spreadsheet tracking, Slack reminders, and CRM fields that nobody consistently updates.',
+  evidence: 'Teams already pay for CRM tooling but still build manual handoff rituals and escalation docs around the gaps.',
+  wedge: 'A narrow workflow that flags stalled handoffs and drafts the next owner action inside the browser.',
+  notes: 'Strong pain, but differentiation and distribution need scrutiny.',
+  painScore: 4,
+  evidenceScore: 4,
+  wedgeScore: 4,
+  distributionScore: 3,
+  edgeScore: 3,
+  opsScore: 3,
+  redFlagNoUser: false,
+  redFlagNoEvidence: false,
+  redFlagTooBroad: false,
+  redFlagHeavyOps: false,
+  redFlagWeakDistribution: false,
+  redFlagCrowded: true,
+};
+
+const consumerSampleState = {
+  ideaName: 'Outfit rewind',
+  user: 'Style-conscious people who forget what they wore to recent events',
+  problem: 'People repeat outfits awkwardly because they do not have a simple private memory of recent looks.',
+  statusQuo: 'Camera rolls, vague memory, and scattered notes in apps not made for this.',
+  evidence: 'Some anecdotal desire exists, but strong payment or retention proof is weak.',
+  wedge: 'A local-only visual outfit log with event tags and repeat warnings.',
+  notes: 'Cute and personal, but likely more delight than durable demand right now.',
+  painScore: 2,
+  evidenceScore: 1,
+  wedgeScore: 4,
+  distributionScore: 2,
+  edgeScore: 2,
+  opsScore: 5,
+  redFlagNoUser: false,
+  redFlagNoEvidence: true,
+  redFlagTooBroad: false,
+  redFlagHeavyOps: false,
+  redFlagWeakDistribution: true,
+  redFlagCrowded: false,
 };
 
 function readSnapshots() {
@@ -256,6 +302,14 @@ function loadSaved() {
 Object.values(fields).forEach((el) => el.addEventListener('input', render));
 buttons.loadSample.addEventListener('click', () => {
   applyState(sampleState);
+  render();
+});
+buttons.loadB2BSample.addEventListener('click', () => {
+  applyState(b2bSampleState);
+  render();
+});
+buttons.loadConsumerSample.addEventListener('click', () => {
+  applyState(consumerSampleState);
   render();
 });
 buttons.reset.addEventListener('click', reset);

@@ -20,6 +20,7 @@ Build or Bin is intentionally simple:
 ## Features
 
 - guided product idea intake
+- multiple starter sample scenarios
 - six-factor reality score
 - explicit red-flag kill conditions
 - verdict engine: Build Now / Prototype / Monitor / Park / Kill
