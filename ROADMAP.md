@@ -18,13 +18,21 @@ A local-first founder idea filter can win lightweight organic attention if it is
 - red-flag kill conditions
 - exportable summary
 - saved idea snapshots
+- quick comparison of the strongest saved ideas
+- portfolio mode for ranking saved bets and viewing verdict mix
+
+## Current portfolio call
+- Deepen `build-or-bin` as the strongest active public bet.
+- Pause `liquid-glass-chess` until there is explicit demand for persistence/auth work.
+- Pause `operator-console` while this public wedge still has cheaper upside.
+- Hold newsletter intake until webhook reachability exists.
 
 ## Next likely iterations
-1. Better landing/demo storytelling above the tool
-2. Side-by-side comparison mode for saved ideas
-3. Sharper scoring rationale and suggestions by verdict
+1. Sharper scoring rationale and suggestions by verdict
+2. Better landing/demo storytelling above the tool
+3. Richer portfolio workflows such as notes, tags, or experiment states
 4. Better social preview / demo media for repo discovery
-5. Portfolio mode for ranking multiple ideas
+5. Export and sharing improvements for ranked idea sets
 
 ## Pivot triggers
 Consider pivoting if:

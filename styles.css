@@ -185,7 +185,8 @@ pre {
 }
 
 .snapshot-list,
-.comparison-view {
+.comparison-view,
+.portfolio-view {
   display: grid;
   gap: 12px;
 }
@@ -251,12 +252,67 @@ pre {
   font-weight: 700;
 }
 
+.portfolio-summary,
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.portfolio-stat,
+.portfolio-card {
+  border: 1px solid rgba(180, 205, 255, 0.1);
+  background: rgba(8, 14, 26, 0.46);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.portfolio-stat.full-width {
+  grid-column: 1 / -1;
+}
+
+.metric-value.small {
+  font-size: 1.2rem;
+}
+
+.portfolio-verdicts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.verdict-tag,
+.portfolio-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(180, 205, 255, 0.14);
+  background: rgba(119, 168, 255, 0.12);
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.portfolio-card {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.portfolio-card h3 {
+  margin: 0 0 6px;
+}
+
 @media (max-width: 880px) {
   .grid,
   .form-grid,
   .check-grid,
   .score-band,
   .compare-grid,
+  .portfolio-summary,
+  .portfolio-grid,
   .intro-grid,
   .verdict-grid { grid-template-columns: 1fr; }
   .hero { flex-direction: column; }

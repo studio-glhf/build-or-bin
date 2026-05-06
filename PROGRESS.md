@@ -14,4 +14,10 @@
 ## Current repo status
 - Stars: 0
 - Live demo: up
-- Next best step: improve demo storytelling and comparison workflow
+- Next best step: sharpen verdict rationale so the tool feels more opinionated, not just more organized
+
+## Iteration 3
+- reassessed the active portfolio and chose Build or Bin as the strongest current public bet
+- documented deepen/pause/hold calls in the workspace portfolio review
+- added portfolio mode inside the app so saved snapshots now become a ranked multi-idea view
+- upgraded quick comparison to compare the strongest saved ideas instead of only the two most recent

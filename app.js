@@ -36,6 +36,7 @@ const outputs = {
   summaryText: document.querySelector('#summaryText'),
   snapshotList: document.querySelector('#snapshotList'),
   comparisonView: document.querySelector('#comparisonView'),
+  portfolioView: document.querySelector('#portfolioView'),
 };
 
 const buttons = {
@@ -236,7 +237,7 @@ function renderComparison() {
     return;
   }
 
-  const [a, b] = snapshots;
+  const [a, b] = [...snapshots].sort((left, right) => right.score - left.score || right.savedAt - left.savedAt);
   const winner = a.score === b.score ? null : a.score > b.score ? a : b;
   outputs.comparisonView.className = 'comparison-view';
   outputs.comparisonView.innerHTML = `
@@ -259,6 +260,57 @@ function renderComparison() {
   `;
 }
 
+function renderPortfolio() {
+  const snapshots = [...readSnapshots()].sort((left, right) => right.score - left.score || right.savedAt - left.savedAt);
+  if (!snapshots.length) {
+    outputs.portfolioView.className = 'portfolio-view empty-state';
+    outputs.portfolioView.textContent = 'Save a few snapshots to see the portfolio ranking, verdict mix, and strongest bets.';
+    return;
+  }
+
+  const averageScore = Math.round((snapshots.reduce((sum, item) => sum + item.score, 0) / snapshots.length) * 10) / 10;
+  const verdictCounts = snapshots.reduce((acc, item) => {
+    acc[item.verdict] = (acc[item.verdict] || 0) + 1;
+    return acc;
+  }, {});
+  const top = snapshots[0];
+
+  outputs.portfolioView.className = 'portfolio-view';
+  outputs.portfolioView.innerHTML = `
+    <div class="portfolio-summary">
+      <article class="portfolio-stat">
+        <span class="metric-label">Saved bets</span>
+        <strong class="metric-value small">${snapshots.length}</strong>
+      </article>
+      <article class="portfolio-stat">
+        <span class="metric-label">Average score</span>
+        <strong class="metric-value small">${averageScore} / 30</strong>
+      </article>
+      <article class="portfolio-stat full-width">
+        <span class="metric-label">Current strongest bet</span>
+        <strong class="metric-value small">${top.ideaName || 'Untitled idea'} · ${top.verdict}</strong>
+        <p class="snapshot-meta">${top.user || 'No specific user saved'} · score ${top.score}/30</p>
+      </article>
+    </div>
+    <div class="portfolio-verdicts">
+      ${Object.entries(verdictCounts).map(([verdict, count]) => `<span class="verdict-tag">${verdict}: ${count}</span>`).join('')}
+    </div>
+    <div class="portfolio-grid">
+      ${snapshots.map((item, index) => `
+        <article class="portfolio-card">
+          <div class="portfolio-rank">#${index + 1}</div>
+          <div>
+            <h3>${item.ideaName || 'Untitled idea'}</h3>
+            <p class="snapshot-meta">${item.verdict} · ${item.score}/30</p>
+            <p class="snapshot-meta">${item.user || 'No specific user saved'}</p>
+            <p class="snapshot-meta">${item.state.wedge || 'No wedge saved yet.'}</p>
+          </div>
+        </article>
+      `).join('')}
+    </div>
+  `;
+}
+
 function render() {
   const state = collectState();
   const score = state.painScore + state.evidenceScore + state.wedgeScore + state.distributionScore + state.edgeScore + state.opsScore;
@@ -277,6 +329,7 @@ function render() {
   saveState();
   renderSnapshots();
   renderComparison();
+  renderPortfolio();
 }
 
 function reset() {
@@ -349,6 +402,7 @@ outputs.snapshotList.addEventListener('click', (event) => {
     writeSnapshots(snapshots);
     renderSnapshots();
     renderComparison();
+    renderPortfolio();
   }
 });
 
