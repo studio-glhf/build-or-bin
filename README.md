@@ -24,9 +24,11 @@ Build or Bin is intentionally simple:
 - six-factor reality score
 - explicit red-flag kill conditions
 - verdict engine: Build Now / Prototype / Monitor / Park / Kill
+- recommended next moves based on verdict, weak dimensions, and red flags
 - exportable summary
 - save and reload idea snapshots
-- quick side-by-side comparison of the top two saved ideas
+- quick side-by-side comparison of the strongest two saved ideas
+- portfolio mode for ranking saved bets and spotting the strongest one
 - local-first persistence via `localStorage`
 - social preview and branded static assets for cleaner GitHub/link sharing
 
@@ -48,9 +50,7 @@ Then visit <http://localhost:4173/build-or-bin/> if served from the workspace ro
 
 ## Roadmap
 
-- richer scoring rationale
-- richer multi-idea comparison view
-- portfolio mode
+- richer multi-idea comparison and portfolio workflows
 - better export formats
 - cleaner landing/demo storytelling for organic GitHub discovery
 

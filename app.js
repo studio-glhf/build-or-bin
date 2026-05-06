@@ -33,6 +33,7 @@ const outputs = {
   totalScore: document.querySelector('#totalScore'),
   verdict: document.querySelector('#verdict'),
   reasoning: document.querySelector('#reasoning'),
+  nextMoveList: document.querySelector('#nextMoveList'),
   summaryText: document.querySelector('#summaryText'),
   snapshotList: document.querySelector('#snapshotList'),
   comparisonView: document.querySelector('#comparisonView'),
@@ -185,7 +186,67 @@ function verdictCopy(verdict, score, redFlags) {
   return `${pressure[verdict]} Score: ${score}/30. ${redFlagLine}`;
 }
 
+function getWeakestDimensions(state) {
+  return [
+    ['pain', state.painScore, 'The pain may not be sharp enough yet. Find a user who is actively frustrated, not just interested.'],
+    ['evidence', state.evidenceScore, 'Evidence is soft. Look for proof like repeated asks, existing workaround spend, or concrete usage intent.'],
+    ['wedge', state.wedgeScore, 'The wedge still feels loose. Tighten it until a user can say yes to one narrow job.'],
+    ['distribution', state.distributionScore, 'Distribution is the weak flank. Name the first channel and why those users would actually hear about it.'],
+    ['edge', state.edgeScore, 'Your unfair advantage is blurry. Clarify why you are better positioned than a random competent team.'],
+    ['ops', state.opsScore, 'Ops drag looks too real. Strip away service complexity until the first version stays lightweight.'],
+  ]
+    .sort((left, right) => left[1] - right[1])
+    .slice(0, 2)
+    .map(([, , copy]) => copy);
+}
+
+function getNextMoves(state, verdict, redFlags) {
+  const baseMoves = {
+    'BUILD NOW': [
+      'Define the narrow first version you can ship in under 7 days.',
+      'Pick one concrete distribution lane and write how the first 10 users would find it.',
+      'Name the one success metric that would justify doubling down.'
+    ],
+    PROTOTYPE: [
+      'Design the fastest learning loop, not the full product.',
+      'Talk to or test with a few real users before adding more surface area.',
+      'Set one proof threshold that would upgrade this to BUILD NOW.'
+    ],
+    MONITOR: [
+      'Do not build yet. List the exact evidence that would make this worth revisiting.',
+      'Track adjacent market signals, user complaints, or repeated asks.',
+      'Reframe the idea into a narrower wedge if a sharp angle appears.'
+    ],
+    PARK: [
+      'Pause execution and rewrite the idea around a more specific user or tighter wedge.',
+      'Remove platform ambition until value appears in a much smaller slice.',
+      'Only resume if a sharper problem statement survives the rewrite.'
+    ],
+    KILL: [
+      'Stop spending build energy on this shape of the idea.',
+      'Write down any salvageable insight, user pain, or distribution lesson.',
+      'Move attention to a bet with stronger proof or lower drag.'
+    ],
+  };
+
+  const redFlagMoves = {
+    'No specific user': 'Name a painfully specific user before doing anything else.',
+    'Weak evidence': 'Get stronger evidence before deeper building, even if that means manual interviews or landing-page tests.',
+    'Needs a full platform first': 'Cut the scope until value appears without a full platform build.',
+    'Ops burden too high': 'Find a version that avoids human service or messy operations at the start.',
+    'Weak distribution': 'Write the first believable acquisition path in one sentence.',
+    'Crowded / weak differentiation': 'State the sharpest difference in one line, or admit the wedge is not distinctive enough yet.',
+  };
+
+  return [
+    ...baseMoves[verdict],
+    ...redFlags.slice(0, 2).map((flag) => redFlagMoves[flag]),
+    ...getWeakestDimensions(state),
+  ].filter(Boolean).slice(0, 5);
+}
+
 function buildSummary(state, score, verdict, redFlags) {
+  const nextMoves = getNextMoves(state, verdict, redFlags);
   return [
     `# ${state.ideaName || 'Untitled idea'}`,
     '',
@@ -199,6 +260,7 @@ function buildSummary(state, score, verdict, redFlags) {
     `Narrowest wedge: ${state.wedge || '—'}`,
     '',
     `Red flags: ${redFlags.length ? redFlags.join(', ') : 'None currently checked'}`,
+    `Recommended next moves: ${nextMoves.join(' | ') || '—'}`,
     `Notes: ${state.notes || '—'}`,
   ].join('\n');
 }
@@ -324,6 +386,9 @@ function render() {
   outputs.totalScore.textContent = `${score} / 30`;
   outputs.verdict.textContent = verdict;
   outputs.reasoning.textContent = verdictCopy(verdict, score, redFlags);
+  outputs.nextMoveList.innerHTML = getNextMoves(state, verdict, redFlags)
+    .map((item) => `<li>${item}</li>`)
+    .join('');
   outputs.summaryText.textContent = buildSummary(state, score, verdict, redFlags);
 
   saveState();

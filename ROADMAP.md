@@ -16,6 +16,7 @@ A local-first founder idea filter can win lightweight organic attention if it is
 - local-first browser storage
 - six-factor scoring
 - red-flag kill conditions
+- verdict-specific recommended next moves
 - exportable summary
 - saved idea snapshots
 - quick comparison of the strongest saved ideas
@@ -28,11 +29,11 @@ A local-first founder idea filter can win lightweight organic attention if it is
 - Hold newsletter intake until webhook reachability exists.
 
 ## Next likely iterations
-1. Sharper scoring rationale and suggestions by verdict
-2. Better landing/demo storytelling above the tool
-3. Richer portfolio workflows such as notes, tags, or experiment states
-4. Better social preview / demo media for repo discovery
-5. Export and sharing improvements for ranked idea sets
+1. Better landing/demo storytelling above the tool
+2. Richer portfolio workflows such as notes, tags, or experiment states
+3. Better social preview / demo media for repo discovery
+4. Export and sharing improvements for ranked idea sets
+5. Discovery-oriented README examples and use cases
 
 ## Pivot triggers
 Consider pivoting if:

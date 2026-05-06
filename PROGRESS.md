@@ -21,3 +21,8 @@
 - documented deepen/pause/hold calls in the workspace portfolio review
 - added portfolio mode inside the app so saved snapshots now become a ranked multi-idea view
 - upgraded quick comparison to compare the strongest saved ideas instead of only the two most recent
+
+## Iteration 4
+- improved the core decision experience with recommended next moves driven by verdict, red flags, and weakest dimensions
+- updated the export summary so it carries actionable next steps instead of just a label and score
+- refreshed README and roadmap copy to reflect the stronger portfolio and decision-guidance surface

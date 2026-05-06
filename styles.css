@@ -168,12 +168,22 @@ input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--danger);
   border-radius: 18px;
   padding: 16px;
 }
+.next-move-box,
 .summary-box {
   margin-top: 16px;
   background: rgba(8, 14, 26, 0.5);
   border: 1px solid rgba(180, 205, 255, 0.1);
   border-radius: 18px;
   padding: 16px;
+}
+.next-move-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.next-move-list li + li {
+  margin-top: 8px;
 }
 pre {
   white-space: pre-wrap;
